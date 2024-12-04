@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>About</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="about">About</h1>
+<p>This repository contains the data made available for the paper &quot;Parameter Optimization for Iterative MINFLUX Microscopy&quot; currently under review at Communications Biology. We also provide a small selection of code to read, format and export the data for your own use.</p>
+<p>The data made available here is an excerpt of the original files that is formatted for ease of use. The <code>raw</code> set have been extracted from the propriatory MINFLUX <code>.npy</code>-files produced by the Abberior (GmbH) MINFLUX-IMSPECTOR. They are provided <strong>unaltered</strong>.</p>
+<p>The <code>filtered</code> sets were <strong>processed</strong> as stated in <a href="#data-processing">Data Processing</a>.</p>
+<h1 id="data">Data</h1>
+<p>The data is can be found in the following directory strcuture under <code>data</code>:</p>
+<pre><code class="language-bash">root:.
+├───data
+│   ├───change_dwell_time
+│   │   ├───filtered
+│   │   └───raw
+│   └───change_photon_limit
+│       ├───filtered
+│       └───raw
+└───data_access_utils
+
+</code></pre>
+<p>We chose the <code>.npz</code> format to store the files in a conveneint and efficient way. The data is stored in a dictionary with the following keys:</p>
+<pre><code class="language-python">[<span class="hljs-string">&#x27;Z&#x27;</span>, <span class="hljs-string">&#x27;Y&#x27;</span>, <span class="hljs-string">&#x27;X&#x27;</span>, <span class="hljs-string">&#x27;T&#x27;</span>, <span class="hljs-string">&#x27;ECO&#x27;</span>, <span class="hljs-string">&#x27;EFO&#x27;</span>, <span class="hljs-string">&#x27;TID&#x27;</span>, <span class="hljs-string">&#x27;TIC&#x27;</span>, <span class="hljs-string">&#x27;ITR&#x27;</span>, <span class="hljs-string">&#x27;FBG&#x27;</span>, <span class="hljs-string">&#x27;ID&#x27;</span>]
+</code></pre>
+<h2 id="data-processing">Data Processing</h2>
+<p>The data was processed in the following way:</p>
+<ol>
+<li>Discard all traces with less than 50 localizations.</li>
+<li>Set starting time to 0 for all traces.</li>
+<li>Set the range of IDs to [0, N-1] with N being the number of traces.</li>
+<li>Remove Jump and Jitter artifacts.
+<ol>
+<li>Extract MINFLUX time signal from data.</li>
+<li>Cut traces whenever jump or jitter artifacts are detected.</li>
+<li>Remove traces with less than 50 localizations.</li>
+</ol>
+</li>
+<li>Remove blob-artifacts using <a href="https://www.frontiersin.org/journals/bioinformatics/articles/10.3389/fbinf.2023.1268899/full">blob-b-gone</a>.</li>
+</ol>
+<h1 id="data-access-utils">Data Access Utils</h1>
+<p>We provide a small set of utilities to access the data in the <code>.npz</code> files. The utilities are stored in <code>data_access_tools/tools.py</code>. We showcase the usage of the utilities in the following code in the <code>data_access_tools/how_to_get_your_data.ipnyb</code>.</p>
+<p>Feel free to use the utilities in your own code.</p>
+<h2 id="python-environment">Python Environment</h2>
+<p>Requirements: <a href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a> or <a href="https://www.anaconda.com/products/distribution">anaconda</a> installed.
+Dont forget that you can &quot;<strong>skip registration</strong>&quot; even when installing anaconda don't get confused by the <a href="https://en.wikipedia.org/wiki/Dark_pattern">dark pattern</a> they put up.</p>
+<h3 id="create-the-environment">Create the environment</h3>
+<p>Open a terminal or anaconda prompt and navigate to the root of the repository. Then run the following command:</p>
+<pre><code class="language-bash">conda <span class="hljs-built_in">env</span> create -f python_env.yml
+</code></pre>
+<p>After that you can activate the environment with:</p>
+<pre><code class="language-bash">conda activate MFX_data
+</code></pre>
+<h1 id="data-field-description">Data Field Description</h1>
+<p>In the following, we list the data fileds present in the files.</p>
+<h2 id="position-and-time">Position and Time</h2>
+<h4 id="xyz"><code>X,Y,Z</code></h4>
+<ul>
+<li><strong>value</strong>: Any <code>float</code>.</li>
+<li><strong>content</strong>: The x, y, z coordinates of the emitter in the 3D space. The coordinates are given in nanometers. As our experiments are 2D, the z-coordinate is always 0.</li>
+</ul>
+<h4 id="t"><code>T</code></h4>
+<ul>
+<li><strong>value</strong>: Any positive <code>float</code>.</li>
+<li><strong>content</strong>: States the time in seconds of sucessful position estimation relative to the point in time the measurement has been started.</li>
+</ul>
+<h2 id="photon-information">Photon Information</h2>
+<h4 id="eco"><code>ECO</code></h4>
+<ul>
+<li><strong>value</strong>: Any positive <code>integer</code>.</li>
+<li><strong>content</strong>: The <code>effective-count-(at)-offset (eco)</code> states the sum of photons collected during all TCP cycles.</li>
+</ul>
+<h4 id="efo"><code>EFO</code></h4>
+<ul>
+<li><strong>value</strong>: Any positive <code>float</code>.</li>
+<li><strong>content</strong>: The <code>effective-frequency-(at)-offset (efo)</code> states the total emission frequency of photons collected during all TCP cycles. It is calculated as follows:<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>EFO</mtext><mo>=</mo><mfrac><mtext>ECO</mtext><mrow><mi>k</mi><mo>⋅</mo><msub><mi>t</mi><mrow><mi>d</mi><mi>w</mi><mi>e</mi><mi>l</mi><mi>l</mi></mrow></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{EFO}=\frac{\text{ECO}}{k \cdot t_{dwell}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">EFO</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1963em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">ll</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">ECO</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+With <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> being the number of integrated TCP cycles.</li>
+</ul>
+<h2 id="iteration-and-trace-information-optional">Iteration and Trace Information (optional)</h2>
+<h4 id="tid"><code>TID</code></h4>
+<ul>
+<li><strong>value</strong>: Any positive <code>integer</code>.</li>
+<li><strong>content</strong>: The <code>track/trace-id (tid)</code> is given to each sucessfully concluded photon burst trace. Localizations with the same <code>tid</code> are recorded for the &quot;same&quot; photon burst event. This alone is however <strong>NOT</strong> a valid measure to separate single particles, as they can be recorded in continuation under one single <code>tid</code></li>
+</ul>
+<h4 id="tic"><code>TIC</code></h4>
+<ul>
+<li><strong>value</strong>: Any positive <code>integer</code>.</li>
+<li><strong>content</strong>: Internal clock tic of the used FPGA.</li>
+</ul>
+<h2 id="technical-information-optional">Technical Information (optional)</h2>
+<h4 id="fbg"><code>FBG</code></h4>
+<ul>
+<li><strong>value</strong>: Any <code>float</code>.</li>
+<li><strong>content</strong>: Photon detection frequency of the background. Only determined if <a href="#bgcsense">bgcSense</a> is enabled.</li>
+</ul>
+<h4 id="itr"><code>ITR</code></h4>
+<ul>
+<li><strong>value</strong>: Any positive <code>integer</code> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><msub><mtext>num</mtext><mrow><mi>i</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>s</mi></mrow></msub><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\in[0,\text{num}_{iterations}-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord text"><span class="mord">num</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">er</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></li>
+<li><strong>content</strong>: Iteration ID; Only the last one will retrun a localization.</li>
+</ul>
+<h1 id="extended-data-availability">Extended Data Availability</h1>
+<p>Should you require the full data set as exported from the MINFLUX-IMSPECTOR and/or sequence file, please contact the corresponding author. The data is stored in a proprietary format and can be made available upon request.</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
