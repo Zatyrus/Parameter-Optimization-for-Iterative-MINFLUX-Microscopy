@@ -157,7 +157,7 @@
 
 </code></pre>
 <p>We chose the <code>.npz</code> format to store the files in a conveneint and efficient way. The data is stored in a dictionary with the following keys:</p>
-<pre><code class="language-python">[<span class="hljs-string">&#x27;Z&#x27;</span>, <span class="hljs-string">&#x27;Y&#x27;</span>, <span class="hljs-string">&#x27;X&#x27;</span>, <span class="hljs-string">&#x27;T&#x27;</span>, <span class="hljs-string">&#x27;ECO&#x27;</span>, <span class="hljs-string">&#x27;EFO&#x27;</span>, <span class="hljs-string">&#x27;TID&#x27;</span>, <span class="hljs-string">&#x27;TIC&#x27;</span>, <span class="hljs-string">&#x27;ITR&#x27;</span>, <span class="hljs-string">&#x27;FBG&#x27;</span>, <span class="hljs-string">&#x27;ID&#x27;</span>]
+<pre><code class="language-python">[<span class="hljs-string">&#x27;Z&#x27;</span>, <span class="hljs-string">&#x27;Y&#x27;</span>, <span class="hljs-string">&#x27;X&#x27;</span>, <span class="hljs-string">&#x27;T&#x27;</span>, <span class="hljs-string">&#x27;ECO&#x27;</span>, <span class="hljs-string">&#x27;EFO&#x27;</span>, <span class="hljs-string">&#x27;TID&#x27;</span>, <span class="hljs-string">&#x27;TIC&#x27;</span>, <span class="hljs-string">&#x27;ITR&#x27;</span>, <span class="hljs-string">&#x27;ID&#x27;</span>]
 </code></pre>
 <h2 id="data-processing">Data Processing</h2>
 <p>The data was processed in the following way:</p>
@@ -174,6 +174,19 @@
 </li>
 <li>Remove blob-artifacts using <a href="https://www.frontiersin.org/journals/bioinformatics/articles/10.3389/fbinf.2023.1268899/full">blob-b-gone</a>.</li>
 </ol>
+<h3 id="nomenclature">Nomenclature</h3>
+<p>We use the following nomenclature for the files:</p>
+<pre><code class="language-bash">&lt;experiment&gt;_&lt;set_type&gt;_&lt;tolerated_noise_limit&gt;-&lt;jitter_limit&gt;-&lt;jump_limit&gt;_&lt;blob-b-gone_used&gt;.npz
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>&lt;experiment&gt;</code>: The experiment the data was taken from.</li>
+<li><code>&lt;set_type&gt;</code>: The type of set the data belongs to. [raw, processed]</li>
+<li><code>&lt;tolerated_noise_limit&gt;</code>: Lower threshold for cycle counts seen as toleratable noise; set to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="sans-serif">median</mtext><mo stretchy="false">(</mo><mi>η</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\textsf{median}(\eta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textsf">median</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span></span></span></span>. Anything below that is treated as trivial noise.</li>
+<li><code>&lt;jitter_limit&gt;</code>: Lower threshold for cycle counts seen as jitter; set to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="sans-serif">median</mtext><mo stretchy="false">(</mo><mi>η</mi><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">\textsf{median}(\eta)+1\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textsf">median</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span></span></span></span>.</li>
+<li><code>&lt;jump_limit&gt;</code>: Lower threshold for cycle counts seen as jumps; set to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="sans-serif">median</mtext><mo stretchy="false">(</mo><mi>η</mi><mo stretchy="false">)</mo><mo>+</mo><mn>2</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">\textsf{median}(\eta)+2\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textsf">median</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span></span></span></span>.</li>
+<li><code>&lt;blob-b-gone_used&gt;</code>: Whether the blob-b-gone (BBEG) algorithm was used to remove blob artifacts. [BBEG, noBBEG]</li>
+</ul>
 <h1 id="data-access-utils">Data Access Utils</h1>
 <p>We provide a small set of utilities to access the data in the <code>.npz</code> files. The utilities are stored in <code>data_access_tools/tools.py</code>. We showcase the usage of the utilities in the following code in the <code>data_access_tools/how_to_get_your_data.ipnyb</code>.</p>
 <p>Feel free to use the utilities in your own code.</p>
@@ -219,21 +232,16 @@ With <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.o
 <li><strong>value</strong>: Any positive <code>integer</code>.</li>
 <li><strong>content</strong>: The <code>track/trace-id (tid)</code> is given to each sucessfully concluded photon burst trace. Localizations with the same <code>tid</code> are recorded for the &quot;same&quot; photon burst event. This alone is however <strong>NOT</strong> a valid measure to separate single particles, as they can be recorded in continuation under one single <code>tid</code></li>
 </ul>
-<h4 id="tic"><code>TIC</code></h4>
-<ul>
-<li><strong>value</strong>: Any positive <code>integer</code>.</li>
-<li><strong>content</strong>: Internal clock tic of the used FPGA.</li>
-</ul>
-<h2 id="technical-information-optional">Technical Information (optional)</h2>
-<h4 id="fbg"><code>FBG</code></h4>
-<ul>
-<li><strong>value</strong>: Any <code>float</code>.</li>
-<li><strong>content</strong>: Photon detection frequency of the background. Only determined if <a href="#bgcsense">bgcSense</a> is enabled.</li>
-</ul>
 <h4 id="itr"><code>ITR</code></h4>
 <ul>
 <li><strong>value</strong>: Any positive <code>integer</code> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><msub><mtext>num</mtext><mrow><mi>i</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>s</mi></mrow></msub><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\in[0,\text{num}_{iterations}-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord text"><span class="mord">num</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">er</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></li>
 <li><strong>content</strong>: Iteration ID; Only the last one will retrun a localization.</li>
+</ul>
+<h2 id="technical-information-optional">Technical Information (optional)</h2>
+<h4 id="tic"><code>TIC</code></h4>
+<ul>
+<li><strong>value</strong>: Any positive <code>integer</code>.</li>
+<li><strong>content</strong>: Internal clock tic of the used FPGA.</li>
 </ul>
 <h1 id="extended-data-availability">Extended Data Availability</h1>
 <p>Should you require the full data set as exported from the MINFLUX-IMSPECTOR and/or sequence file, please contact the corresponding author. The data is stored in a proprietary format and can be made available upon request.</p>

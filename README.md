@@ -22,7 +22,7 @@ root:.
 
 We chose the `.npz` format to store the files in a conveneint and efficient way. The data is stored in a dictionary with the following keys:
 ```python
-['Z', 'Y', 'X', 'T', 'ECO', 'EFO', 'TID', 'TIC', 'ITR', 'FBG', 'ID']
+['Z', 'Y', 'X', 'T', 'ECO', 'EFO', 'TID', 'TIC', 'ITR', 'ID']
 ```
 ## Data Processing
 The data was processed in the following way:
@@ -34,6 +34,20 @@ The data was processed in the following way:
    2. Cut traces whenever jump or jitter artifacts are detected.
    3. Remove traces with less than 50 localizations.
 5. Remove blob-artifacts using [blob-b-gone](https://www.frontiersin.org/journals/bioinformatics/articles/10.3389/fbinf.2023.1268899/full).
+
+### Nomenclature
+We use the following nomenclature for the files:
+```bash
+<experiment>_<set_type>_<tolerated_noise_limit>-<jitter_limit>-<jump_limit>_<blob-b-gone_used>.npz
+```
+Where:
+- `<experiment>`: The experiment the data was taken from.
+- `<set_type>`: The type of set the data belongs to. [raw, processed]
+- `<tolerated_noise_limit>`: Lower threshold for cycle counts seen as toleratable noise; set to $\textsf{median}(\eta)$. Anything below that is treated as trivial noise.
+- `<jitter_limit>`: Lower threshold for cycle counts seen as jitter; set to $\textsf{median}(\eta)+1\sigma$. 
+- `<jump_limit>`: Lower threshold for cycle counts seen as jumps; set to $\textsf{median}(\eta)+2\sigma$. 
+- `<blob-b-gone_used>`: Whether the blob-b-gone (BBEG) algorithm was used to remove blob artifacts. [BBEG, noBBEG]
+
 
 # Data Access Utils
 We provide a small set of utilities to access the data in the `.npz` files. The utilities are stored in `data_access_tools/tools.py`. We showcase the usage of the utilities in the following code in the `data_access_tools/how_to_get_your_data.ipnyb`.
@@ -81,21 +95,15 @@ In the following, we list the data fileds present in the files.
 #### ``TID``
 - **value**: Any positive ``integer``.
 - **content**: The ``track/trace-id (tid)`` is given to each sucessfully concluded photon burst trace. Localizations with the same ``tid`` are recorded for the "same" photon burst event. This alone is however **NOT** a valid measure to separate single particles, as they can be recorded in continuation under one single ``tid``
-
-#### ``TIC``
-- **value**: Any positive ``integer``.
-- **content**: Internal clock tic of the used FPGA.
-
-
-## Technical Information (optional)
-#### ``FBG``
-- **value**: Any ``float``.
-- **content**: Photon detection frequency of the background. Only determined if [bgcSense](#bgcsense) is enabled.
-
+  
 #### ``ITR``
 - **value**: Any positive ``integer`` $\in[0,\text{num}_{iterations}-1]$
 - **content**: Iteration ID; Only the last one will retrun a localization.
 
+## Technical Information (optional)
+#### ``TIC``
+- **value**: Any positive ``integer``.
+- **content**: Internal clock tic of the used FPGA.
 
 # Extended Data Availability
 Should you require the full data set as exported from the MINFLUX-IMSPECTOR and/or sequence file, please contact the corresponding author. The data is stored in a proprietary format and can be made available upon request.
