@@ -69,8 +69,6 @@ conda activate MFX_data
 ```
 
 # Data Field Description
-In the following, we list the data fileds present in the files.
-
 ## Position and Time
 #### ``X,Y,Z``
 - **value**: Any ``float``.
