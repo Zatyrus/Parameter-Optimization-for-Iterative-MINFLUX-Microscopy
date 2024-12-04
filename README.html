@@ -143,6 +143,19 @@
 <p>This repository contains the data made available for the paper &quot;Parameter Optimization for Iterative MINFLUX Microscopy&quot; currently under review at Communications Biology. We also provide a small selection of code to read, format and export the data for your own use.</p>
 <p>The data made available here is an excerpt of the original files that is formatted for ease of use. The <code>raw</code> set have been extracted from the propriatory MINFLUX <code>.npy</code>-files produced by the Abberior (GmbH) MINFLUX-IMSPECTOR. They are provided <strong>unaltered</strong>.</p>
 <p>The <code>filtered</code> sets were <strong>processed</strong> as stated in <a href="#data-processing">Data Processing</a>.</p>
+<h1 id="data-access-utils">Data Access Utils</h1>
+<p>We provide a small set of utilities to access the data in the <code>.npz</code> files. The utilities are stored in <code>data_access_tools/tools.py</code>. We showcase the usage of the utilities in the following code in the <code>data_access_tools/how_to_get_your_data.ipnyb</code>.</p>
+<p>Feel free to use the utilities in your own code.</p>
+<h2 id="python-environment">Python Environment</h2>
+<p>Requirements: <a href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a> or <a href="https://www.anaconda.com/products/distribution">anaconda</a> installed.
+Dont forget that you can &quot;<strong>skip registration</strong>&quot; even when installing anaconda don't get confused by the <a href="https://en.wikipedia.org/wiki/Dark_pattern">dark pattern</a> they put up.</p>
+<h3 id="create-the-environment">Create the environment</h3>
+<p>Open a terminal or anaconda prompt and navigate to the root of the repository. Then run the following command:</p>
+<pre><code class="language-bash">conda <span class="hljs-built_in">env</span> create -f python_env.yml
+</code></pre>
+<p>After that you can activate the environment with:</p>
+<pre><code class="language-bash">conda activate MFX_data
+</code></pre>
 <h1 id="data">Data</h1>
 <p>The data is can be found in the following directory strcuture under <code>data</code>:</p>
 <pre><code class="language-bash">root:.
@@ -159,6 +172,19 @@
 <p>We chose the <code>.npz</code> format to store the files in a conveneint and efficient way. The data is stored in a dictionary with the following keys:</p>
 <pre><code class="language-python">[<span class="hljs-string">&#x27;Z&#x27;</span>, <span class="hljs-string">&#x27;Y&#x27;</span>, <span class="hljs-string">&#x27;X&#x27;</span>, <span class="hljs-string">&#x27;T&#x27;</span>, <span class="hljs-string">&#x27;ECO&#x27;</span>, <span class="hljs-string">&#x27;EFO&#x27;</span>, <span class="hljs-string">&#x27;TID&#x27;</span>, <span class="hljs-string">&#x27;TIC&#x27;</span>, <span class="hljs-string">&#x27;ITR&#x27;</span>, <span class="hljs-string">&#x27;ID&#x27;</span>]
 </code></pre>
+<h2 id="nomenclature">Nomenclature</h2>
+<p>We use the following nomenclature for the files:</p>
+<pre><code class="language-bash">&lt;experiment&gt;_&lt;set_type&gt;_&lt;tolerated_noise_limit&gt;-&lt;jitter_limit&gt;-&lt;jump_limit&gt;_&lt;blob-b-gone_used&gt;.npz
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>&lt;experiment&gt;</code>: The experiment the data was taken from.</li>
+<li><code>&lt;set_type&gt;</code>: The type of set the data belongs to. [raw, processed]</li>
+<li><code>&lt;tolerated_noise_limit&gt;</code>: Lower threshold for cycle counts seen as toleratable noise; set to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="sans-serif">median</mtext><mo stretchy="false">(</mo><mi>η</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\textsf{median}(\eta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textsf">median</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span></span></span></span>. Anything below that is treated as trivial noise.</li>
+<li><code>&lt;jitter_limit&gt;</code>: Lower threshold for cycle counts seen as jitter; set to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="sans-serif">median</mtext><mo stretchy="false">(</mo><mi>η</mi><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">\textsf{median}(\eta)+1\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textsf">median</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span></span></span></span>.</li>
+<li><code>&lt;jump_limit&gt;</code>: Lower threshold for cycle counts seen as jumps; set to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="sans-serif">median</mtext><mo stretchy="false">(</mo><mi>η</mi><mo stretchy="false">)</mo><mo>+</mo><mn>2</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">\textsf{median}(\eta)+2\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textsf">median</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span></span></span></span>.</li>
+<li><code>&lt;blob-b-gone_used&gt;</code>: Whether the blob-b-gone (BBEG) algorithm was used to remove blob artifacts. [BBEG, noBBEG]</li>
+</ul>
 <h2 id="data-processing">Data Processing</h2>
 <p>The data was processed in the following way:</p>
 <ol>
@@ -174,34 +200,7 @@
 </li>
 <li>Remove blob-artifacts using <a href="https://www.frontiersin.org/journals/bioinformatics/articles/10.3389/fbinf.2023.1268899/full">blob-b-gone</a>.</li>
 </ol>
-<h3 id="nomenclature">Nomenclature</h3>
-<p>We use the following nomenclature for the files:</p>
-<pre><code class="language-bash">&lt;experiment&gt;_&lt;set_type&gt;_&lt;tolerated_noise_limit&gt;-&lt;jitter_limit&gt;-&lt;jump_limit&gt;_&lt;blob-b-gone_used&gt;.npz
-</code></pre>
-<p>Where:</p>
-<ul>
-<li><code>&lt;experiment&gt;</code>: The experiment the data was taken from.</li>
-<li><code>&lt;set_type&gt;</code>: The type of set the data belongs to. [raw, processed]</li>
-<li><code>&lt;tolerated_noise_limit&gt;</code>: Lower threshold for cycle counts seen as toleratable noise; set to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="sans-serif">median</mtext><mo stretchy="false">(</mo><mi>η</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\textsf{median}(\eta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textsf">median</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span></span></span></span>. Anything below that is treated as trivial noise.</li>
-<li><code>&lt;jitter_limit&gt;</code>: Lower threshold for cycle counts seen as jitter; set to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="sans-serif">median</mtext><mo stretchy="false">(</mo><mi>η</mi><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">\textsf{median}(\eta)+1\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textsf">median</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span></span></span></span>.</li>
-<li><code>&lt;jump_limit&gt;</code>: Lower threshold for cycle counts seen as jumps; set to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="sans-serif">median</mtext><mo stretchy="false">(</mo><mi>η</mi><mo stretchy="false">)</mo><mo>+</mo><mn>2</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">\textsf{median}(\eta)+2\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textsf">median</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span></span></span></span>.</li>
-<li><code>&lt;blob-b-gone_used&gt;</code>: Whether the blob-b-gone (BBEG) algorithm was used to remove blob artifacts. [BBEG, noBBEG]</li>
-</ul>
-<h1 id="data-access-utils">Data Access Utils</h1>
-<p>We provide a small set of utilities to access the data in the <code>.npz</code> files. The utilities are stored in <code>data_access_tools/tools.py</code>. We showcase the usage of the utilities in the following code in the <code>data_access_tools/how_to_get_your_data.ipnyb</code>.</p>
-<p>Feel free to use the utilities in your own code.</p>
-<h2 id="python-environment">Python Environment</h2>
-<p>Requirements: <a href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a> or <a href="https://www.anaconda.com/products/distribution">anaconda</a> installed.
-Dont forget that you can &quot;<strong>skip registration</strong>&quot; even when installing anaconda don't get confused by the <a href="https://en.wikipedia.org/wiki/Dark_pattern">dark pattern</a> they put up.</p>
-<h3 id="create-the-environment">Create the environment</h3>
-<p>Open a terminal or anaconda prompt and navigate to the root of the repository. Then run the following command:</p>
-<pre><code class="language-bash">conda <span class="hljs-built_in">env</span> create -f python_env.yml
-</code></pre>
-<p>After that you can activate the environment with:</p>
-<pre><code class="language-bash">conda activate MFX_data
-</code></pre>
-<h1 id="data-field-description">Data Field Description</h1>
-<h2 id="position-and-time">Position and Time</h2>
+<h2 id="data-field-description">Data Field Description</h2>
 <h4 id="xyz"><code>X,Y,Z</code></h4>
 <ul>
 <li><strong>value</strong>: Any <code>float</code>.</li>
@@ -212,7 +211,6 @@ Dont forget that you can &quot;<strong>skip registration</strong>&quot; even whe
 <li><strong>value</strong>: Any positive <code>float</code>.</li>
 <li><strong>content</strong>: States the time in seconds of sucessful position estimation relative to the point in time the measurement has been started.</li>
 </ul>
-<h2 id="photon-information">Photon Information</h2>
 <h4 id="eco"><code>ECO</code></h4>
 <ul>
 <li><strong>value</strong>: Any positive <code>integer</code>.</li>
@@ -221,11 +219,10 @@ Dont forget that you can &quot;<strong>skip registration</strong>&quot; even whe
 <h4 id="efo"><code>EFO</code></h4>
 <ul>
 <li><strong>value</strong>: Any positive <code>float</code>.</li>
-<li><strong>content</strong>: The <code>effective-frequency-(at)-offset (efo)</code> states the total emission frequency of photons collected during all TCP cycles. It is calculated as follows:<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>EFO</mtext><mo>=</mo><mfrac><mtext>ECO</mtext><mrow><mi>k</mi><mo>⋅</mo><msub><mi>t</mi><mrow><mi>d</mi><mi>w</mi><mi>e</mi><mi>l</mi><mi>l</mi></mrow></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{EFO}=\frac{\text{ECO}}{k \cdot t_{dwell}}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">EFO</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1963em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">ll</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">ECO</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-With <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> being the number of integrated TCP cycles.</li>
+<li><strong>content</strong>: The <code>effective-frequency-(at)-offset (efo)</code> states the total emission frequency of photons collected during all TCP cycles. It is calculated as follows:<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>EFO</mtext><mo>=</mo><mfrac><mtext>ECO</mtext><mrow><mi>η</mi><mo>⋅</mo><msub><mi>t</mi><mrow><mi>d</mi><mi>w</mi><mi>e</mi><mi>l</mi><mi>l</mi></mrow></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{EFO}=\frac{\text{ECO}}{\eta \cdot t_{dwell}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">EFO</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.2408em;vertical-align:-0.8804em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">ll</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">ECO</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+With <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi></mrow><annotation encoding="application/x-tex">\eta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span></span></span></span> being the number of integrated TCP cycles.</li>
 </ul>
-<h2 id="iteration-and-trace-information-optional">Iteration and Trace Information (optional)</h2>
 <h4 id="tid"><code>TID</code></h4>
 <ul>
 <li><strong>value</strong>: Any positive <code>integer</code>.</li>
@@ -236,12 +233,110 @@ With <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.o
 <li><strong>value</strong>: Any positive <code>integer</code> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><msub><mtext>num</mtext><mrow><mi>i</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>s</mi></mrow></msub><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\in[0,\text{num}_{iterations}-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord text"><span class="mord">num</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">er</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></li>
 <li><strong>content</strong>: Iteration ID; Only the last one will retrun a localization.</li>
 </ul>
-<h2 id="technical-information-optional">Technical Information (optional)</h2>
 <h4 id="tic"><code>TIC</code></h4>
 <ul>
 <li><strong>value</strong>: Any positive <code>integer</code>.</li>
 <li><strong>content</strong>: Internal clock tic of the used FPGA.</li>
 </ul>
+<h1 id="acquisition-parameters">Acquisition Parameters</h1>
+<p><strong>Experimental MINFLUX Scanning Parameters for 2D Single Particle Tracking of Fluorescent QDot-labeled Lipid Analogues in the SLB</strong> – <strong>(*)</strong> marks the parameters that were changed for the experiments.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>2D Tracking</strong></th>
+<th style="text-align:center"><strong>1st Iteration</strong></th>
+<th style="text-align:center"><strong>2nd Iteration</strong></th>
+<th style="text-align:center"><strong>3rd Iteration</strong></th>
+<th style="text-align:center"><strong>4th Iteration</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>L (nm)</strong></td>
+<td style="text-align:center">284</td>
+<td style="text-align:center">284</td>
+<td style="text-align:center">302</td>
+<td style="text-align:center">150</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Pattern Shape</strong></td>
+<td style="text-align:center">Hexagon</td>
+<td style="text-align:center">Hexagon</td>
+<td style="text-align:center">Hexagon</td>
+<td style="text-align:center">Hexagon</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Photon Limit (counts)</strong></td>
+<td style="text-align:center">40</td>
+<td style="text-align:center">40</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">50 (*)</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Laser Power Multiplier (times)</strong></td>
+<td style="text-align:center">1.0</td>
+<td style="text-align:center">1.0</td>
+<td style="text-align:center">1.5</td>
+<td style="text-align:center">2.0</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Pattern dwell time (µs)</strong></td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">200 (*)</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Pattern repeat (times)</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>CFR Threshold</strong></td>
+<td style="text-align:center">-1.0</td>
+<td style="text-align:center">-1.0</td>
+<td style="text-align:center">0.5</td>
+<td style="text-align:center">-1.0</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Background Threshold (kHz)</strong></td>
+<td style="text-align:center">15</td>
+<td style="text-align:center">15</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">30</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Damping (control param.)</strong></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Headstart (control param.)</strong></td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">-1</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Stickiness (control param.)</strong></td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>MaxOffTime (control param.)</strong></td>
+<td style="text-align:center">3ms</td>
+<td style="text-align:center">3ms</td>
+<td style="text-align:center">3ms</td>
+<td style="text-align:center">3ms</td>
+</tr>
+</tbody>
+</table>
 <h1 id="extended-data-availability">Extended Data Availability</h1>
 <p>Should you require the full data set as exported from the MINFLUX-IMSPECTOR and/or sequence file, please contact the corresponding author. The data is stored in a proprietary format and can be made available upon request.</p>
 
