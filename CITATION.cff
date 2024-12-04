@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use the technical information or data of this repository, please cite it as below."
+authors:
+- family-names: "Vogler"
+  given-names: "Bela Tristan Leander"
+  orcid: "https://orcid.org/0000-0002-5598-5738"
+- family-names: "Zhao"
+  given-names: "Ziliang"
+  orcid: "https://orcid.org/0000-0002-8723-7312"
+- family-names: "Eggeling"
+  given-names: "Christian"
+  orcid: "https://orcid.org/0000-0002-3698-5599"
+- family-names: "Reina"
+  given-names: "Francesco"
+  orcid: "https://orcid.org/0000-0001-6752-9089"
+title: "Parameter-Optimization-for-Iterative-MINFLUX-Microscopy"
+version: 1.0.0
+date-released: 2024-12-04
+url: "https://github.com/Zatyrus/Parameter-Optimization-for-Iterative-MINFLUX-Microscopy"
