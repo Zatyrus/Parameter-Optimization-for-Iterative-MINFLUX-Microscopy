@@ -1,14 +1,14 @@
 # About
 This repository contains the data made available for the paper "Parameter Optimization for Iterative MINFLUX Microscopy" currently under review at Communications Biology. We also provide a small selection of code to read, format and export the data for your own use.
 
-The data made available here is an excerpt of the original files that is formatted for ease of use. The `raw` set have been extracted from the propriatory MINFLUX `.npy`-files produced by the Abberior (GmbH) MINFLUX-IMSPECTOR. They are provided **unaltered**. 
+The data made available here is an excerpt of the original files that is formatted for ease of use. The `raw` sets have been extracted from the propriatory MINFLUX files produced by the MINFLUX-IMSPECTOR software (Abberior GmbH). The values are provided **unaltered**. 
 
-The `filtered` sets were **processed** as stated in [Data Processing](#data-processing).
+The sets used in the analysis part of our paper, were **processed** as stated in [Data Processing](#data-processing).
 
 # Data Access Utils
 We provide a small set of utilities to access the data in the `.npz` files. The utilities are stored in `data_access_tools/tools.py`. We showcase the usage of the utilities in the following code in the `data_access_tools/how_to_get_your_data.ipnyb`.
 
-Feel free to use the utilities in your own code.
+Feel free to use the methods provided in your own code.
 
 ## Python Environment
 Requirements: [miniconda](https://docs.conda.io/en/latest/miniconda.html) or [anaconda](https://www.anaconda.com/products/distribution) installed.
