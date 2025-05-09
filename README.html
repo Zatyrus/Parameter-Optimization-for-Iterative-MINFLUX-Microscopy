@@ -143,9 +143,6 @@
 <p>This repository contains the data made available for the paper &quot;Parameter Optimization for Iterative MINFLUX Microscopy&quot; currently under review at Communications Biology. We also provide a small selection of code to read, format and export the data for your own use.</p>
 <p>The data made available here is an excerpt of the original files that is formatted for ease of use. The <code>raw</code> sets have been extracted from the propriatory MINFLUX files produced by the MINFLUX-IMSPECTOR software (Abberior GmbH). The values are provided <strong>unaltered</strong>.</p>
 <p>The sets used in the analysis part of our paper, were <strong>processed</strong> as stated in <a href="#data-processing">Data Processing</a>.</p>
-<h1 id="data-access-utils">Data Access Utils</h1>
-<p>We provide a small set of utilities to access the data in the <code>.npz</code> files. These can be accessed under <code>data_access_tools/data_tools.py</code> and <code>data_access_tools/dataset</code>. Please, find a demo of the access tools under <code>data_access_tools/how_to_access_the_data.ipnyb</code>.</p>
-<p>Feel free to use the methods found here in your own code.</p>
 <h2 id="python-environment">Python Environment</h2>
 <p>Requirements: <a href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a> or <a href="https://www.anaconda.com/products/distribution">anaconda</a> installed.
 Dont forget that you can &quot;<strong>skip registration</strong>&quot; even when installing anaconda don't get confused by the <a href="https://en.wikipedia.org/wiki/Dark_pattern">dark pattern</a> they put up.</p>
@@ -195,7 +192,7 @@ Dont forget that you can &quot;<strong>skip registration</strong>&quot; even whe
 <p>The sequence files are stored in the <code>sequences</code> directory and split into two directories: <code>container</code> and <code>custom</code>. The <code>container</code> directory contains default sequence iteraion blocks provided by the manufacturer (Abberior Instruments GmbH). These sequence files can be used to generate and or modify the MINFLUX sequences for the experiments.</p>
 <p>The <code>custom</code> directory contains the custom sequence files used for our experiments. The sequence files are stored in a directory structure that reflects the experiment they were used in.</p>
 <p>All <code>custom</code> files are stored in the <code>.json</code> format and can be implemented straight forwardly into your own experiments. They can be opened and modified with any text editor. We advise to consult Appendix II - Parameter Overview of the journal article.</p>
-<h3 id="data-access-utils-1">Data Access Utils</h3>
+<h3 id="data-access-utils">Data Access Utils</h3>
 <p>The data access utils are stored in the <code>data_access_utils</code> directory. The directory contains two files: <code>data_tools.py</code> and <code>dataset.py</code>. The <code>data_tools.py</code> file contains the functions to access the data in the <code>.npz</code> files. The <code>dataset.py</code> file contains the class to access the data in the <code>.npz</code> files. The class is used to store the data and metadata in a convenient way. A demo of the access tools can be found in the <code>data_access_utils/how_to_access_the_data.ipynb</code> file. The demo shows how to use the data access tools to access the data in the <code>.npz</code> files. The demo is a Jupyter notebook and can be opened with any Jupyter notebook viewer.</p>
 <h3 id="sequence-utils">Sequence Utils</h3>
 <p>We provide a small set of verification tools to quickly check for sequence duplications or id-filename-mismatches that can occur when modifying the sequence files and lead to unexpected errors during the experiment.</p>

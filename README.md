@@ -5,11 +5,6 @@ The data made available here is an excerpt of the original files that is formatt
 
 The sets used in the analysis part of our paper, were **processed** as stated in [Data Processing](#data-processing).
 
-# Data Access Utils
-We provide a small set of utilities to access the data in the `.npz` files. These can be accessed under `data_access_tools/data_tools.py` and `data_access_tools/dataset`. Please, find a demo of the access tools under `data_access_tools/how_to_access_the_data.ipnyb`.
-
-Feel free to use the methods found here in your own code.
-
 ## Python Environment
 Requirements: [miniconda](https://docs.conda.io/en/latest/miniconda.html) or [anaconda](https://www.anaconda.com/products/distribution) installed.
 Dont forget that you can "**skip registration**" even when installing anaconda don't get confused by the [dark pattern](https://en.wikipedia.org/wiki/Dark_pattern) they put up. 
