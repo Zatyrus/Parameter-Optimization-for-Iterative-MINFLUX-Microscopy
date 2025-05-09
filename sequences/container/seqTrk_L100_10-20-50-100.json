@@ -1,0 +1,339 @@
+{
+    "id": "seqTrk_L100_10-20-50-100",
+    "Itr": [
+        {
+            "Mode": {
+                "id": "mflx",
+                "dim": 2,
+                "epsf": "focFldVortex.pickled",
+                "emod": "both",
+                "dpsf": "focFldPlane.pickled",
+                "dmod": "axial",
+                "pattern": "hexagon",
+                "modulated": "exc",
+                "strategy": "BL",
+                "phDiaAU": 1.5
+            },
+            "wavelength": 6.42e-07,
+            "patGeoFactor": 0.28,
+            "phtLimit": 10,
+            "field": [
+                3.984581932868417e-08,
+                3.984581932868417e-08,
+                3.984581932868417e-08
+            ],
+            "estCoeffL": "unspecified",
+            "estCoeffA": "unspecified",
+            "patDwellTime": 0.0001,
+            "patRepeat": 1,
+            "pwrFactor": 3.0,
+            "ccrLimit": -1.0,
+            "bgcThreshold": 50000.0,
+            "estCoeff": [
+                [
+                    [
+                        -1.146060968729825,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        -1.533689426381657,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.9085651291321781,
+                        0.0,
+                        0.0
+                    ]
+                ],
+                [
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                ]
+            ],
+            "_lemd": [
+                1.7711444144580773e-08,
+                0.0
+            ],
+            "_lemn": [
+                2.11454246647886e-08,
+                0.0
+            ],
+            "fldFactor": [
+                0.06222741433021808,
+                0.06222741433021808,
+                0.06222741433021808
+            ],
+            "_wavelength": 6.42e-07
+        },
+        {
+            "Mode": {
+                "id": "mflx",
+                "dim": 2,
+                "epsf": "focFldVortex.pickled",
+                "emod": "both",
+                "dpsf": "focFldPlane.pickled",
+                "dmod": "axial",
+                "pattern": "hexagon",
+                "modulated": "exc",
+                "strategy": "BL",
+                "phDiaAU": 1.5
+            },
+            "wavelength": 6.42e-07,
+            "patGeoFactor": 0.28,
+            "phtLimit": 20,
+            "field": [
+                3.984581932868417e-08,
+                3.984581932868417e-08,
+                3.984581932868417e-08
+            ],
+            "estCoeffL": "unspecified",
+            "estCoeffA": "unspecified",
+            "patDwellTime": 0.0001,
+            "patRepeat": 1,
+            "pwrFactor": 3.0,
+            "ccrLimit": -1.0,
+            "bgcThreshold": 50000.0,
+            "estCoeff": [
+                [
+                    [
+                        -0.773415036874533,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        -4.777335628290269,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        7.088003808698895,
+                        0.0,
+                        0.0
+                    ]
+                ],
+                [
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                ]
+            ],
+            "_lemd": [
+                1.3326483898288783e-08,
+                0.0
+            ],
+            "_lemn": [
+                1.6038967436440127e-08,
+                0.0
+            ],
+            "fldFactor": [
+                0.06222741433021808,
+                0.06222741433021808,
+                0.06222741433021808
+            ],
+            "_wavelength": 6.42e-07
+        },
+        {
+            "Mode": {
+                "id": "mflx",
+                "dim": 2,
+                "epsf": "focFldVortex.pickled",
+                "emod": "both",
+                "dpsf": "focFldPlane.pickled",
+                "dmod": "axial",
+                "pattern": "hexagon",
+                "modulated": "exc",
+                "strategy": "BL",
+                "phDiaAU": 1.5
+            },
+            "wavelength": 6.42e-07,
+            "patGeoFactor": 0.28,
+            "phtLimit": 50,
+            "field": [
+                3.984581932868417e-08,
+                3.984581932868417e-08,
+                3.984581932868417e-08
+            ],
+            "estCoeffL": "unspecified",
+            "estCoeffA": "unspecified",
+            "patDwellTime": 0.0001,
+            "patRepeat": 1,
+            "pwrFactor": 3.0,
+            "ccrLimit": -1.0,
+            "bgcThreshold": 50000.0,
+            "estCoeff": [
+                [
+                    [
+                        -0.6368090724218478,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        -6.3506592697902375,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        9.668137330750115,
+                        0.0,
+                        0.0
+                    ]
+                ],
+                [
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                ]
+            ],
+            "_lemd": [
+                8.927056404119345e-09,
+                0.0
+            ],
+            "_lemn": [
+                1.1097536196535436e-08,
+                0.0
+            ],
+            "fldFactor": [
+                0.06222741433021808,
+                0.06222741433021808,
+                0.06222741433021808
+            ],
+            "_wavelength": 6.42e-07
+        },
+        {
+            "Mode": {
+                "id": "mflx",
+                "dim": 2,
+                "epsf": "focFldVortex.pickled",
+                "emod": "both",
+                "dpsf": "focFldPlane.pickled",
+                "dmod": "axial",
+                "pattern": "hexagon",
+                "modulated": "exc",
+                "strategy": "BL",
+                "phDiaAU": 1.5
+            },
+            "wavelength": 6.42e-07,
+            "patGeoFactor": 0.28,
+            "phtLimit": 100,
+            "field": [
+                3.984581932868417e-08,
+                3.984581932868417e-08,
+                3.984581932868417e-08
+            ],
+            "estCoeffL": "unspecified",
+            "estCoeffA": "unspecified",
+            "patDwellTime": 0.0001,
+            "patRepeat": 1,
+            "pwrFactor": 3.0,
+            "ccrLimit": -1.0,
+            "bgcThreshold": 50000.0,
+            "estCoeff": [
+                [
+                    [
+                        -0.8869419693348957,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        -2.9129852299888515,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        -1.2097879262082945,
+                        0.0,
+                        0.0
+                    ]
+                ],
+                [
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                ]
+            ],
+            "_lemd": [
+                6.458216910613781e-09,
+                0.0
+            ],
+            "_lemn": [
+                8.442794100327362e-09,
+                0.0
+            ],
+            "fldFactor": [
+                0.06222741433021808,
+                0.06222741433021808,
+                0.06222741433021808
+            ],
+            "_wavelength": 6.42e-07
+        }
+    ],
+    "ctrDwellFactor": 0.16,
+    "maxOffTime": "unspecified",
+    "stickiness": 4,
+    "damping": 2,
+    "headstart": -1,
+    "locLimit": -1,
+    "bgcSense": false,
+    "defaultField": {
+        "algo": "hexgrid",
+        "radius": 4e-07,
+        "DR": 1.0,
+        "stride": 1
+    },
+    "field": {
+        "algo": "hexgrid",
+        "fldGeoFactor": 0.5,
+        "stride": 1
+    }
+}

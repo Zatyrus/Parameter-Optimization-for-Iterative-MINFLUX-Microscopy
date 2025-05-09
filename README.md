@@ -6,9 +6,9 @@ The data made available here is an excerpt of the original files that is formatt
 The sets used in the analysis part of our paper, were **processed** as stated in [Data Processing](#data-processing).
 
 # Data Access Utils
-We provide a small set of utilities to access the data in the `.npz` files. The utilities are stored in `data_access_tools/tools.py`. We showcase the usage of the utilities in the following code in the `data_access_tools/how_to_get_your_data.ipnyb`.
+We provide a small set of utilities to access the data in the `.npz` files. These can be accessed under `data_access_tools/data_tools.py` and `data_access_tools/dataset`. Please, find a demo of the access tools under `data_access_tools/how_to_access_the_data.ipnyb`.
 
-Feel free to use the methods provided in your own code.
+Feel free to use the methods found here in your own code.
 
 ## Python Environment
 Requirements: [miniconda](https://docs.conda.io/en/latest/miniconda.html) or [anaconda](https://www.anaconda.com/products/distribution) installed.
@@ -24,48 +24,118 @@ After that you can activate the environment with:
 conda activate MFX_data
 ```
 
-# Data
-The data is can be found in the following directory strcuture under `data`:
+# Directory Structure - Where to find what
 ```bash
 root:.
+├───.ruff_cache
+│   └───0.11.8
 ├───data
-│   ├───change_dwell_time
-│   │   ├───filtered
-│   │   └───raw
-│   └───change_photon_limit
-│       ├───filtered
-│       └───raw
-└───data_access_utils
-
+│   ├───npz_files_processed
+│   │   ├───change_DMP
+│   │   ├───change_dT
+│   │   ├───change_PL
+│   │   ├───dye_sample
+│   │   └───TIRF_Reference
+│   └───npz_files_raw
+│       ├───change_DMP
+│       ├───change_dT
+│       ├───change_PL
+│       ├───dye_sample
+│       └───TIRF_reference
+├───data_access_utils
+│   └───__pycache__
+├───sequences
+│   ├───container
+│   └───custom
+│       ├───background
+│       ├───change_DMP
+│       ├───change_DT
+│       ├───change_PL
+│       └───dye_sample
+└───sequence_utils
+    └───__pycache__
 ```
+### Data Directory
+The data is stored in the `data` directory. The data is split into two directories: `npz_files_raw` and `npz_files_processed`. The `raw` files contain the original data as extracted from the files exported from the MINFLUX-*iMSPECTOR* software. The `processed` files are the files that have been filtered and analyzed as described in [Data Processing](#data-processing).
 
 We chose the `.npz` format to store the files in a conveneint and efficient way. The data is stored in a dictionary with the following keys:
 ```python
 ['Z', 'Y', 'X', 'T', 'ECO', 'EFO', 'TID', 'TIC', 'ITR', 'ID']
 ```
-## Nomenclature
-We use the following nomenclature for the files:
-```bash
-<experiment>_<set_type>_<tolerated_noise_limit>-<jitter_limit>-<jump_limit>_<blob-b-gone_used>.npz
+### Sequence Directory
+The sequence files are stored in the `sequences` directory and split into two directories: `container` and `custom`. The `container` directory contains default sequence iteraion blocks provided by the manufacturer (Abberior Instruments GmbH). These sequence files can be used to generate and or modify the MINFLUX sequences for the experiments. 
+
+The `custom` directory contains the custom sequence files used for our experiments. The sequence files are stored in a directory structure that reflects the experiment they were used in.
+
+All `custom` files are stored in the `.json` format and can be implemented straight forwardly into your own experiments. They can be opened and modified with any text editor. We advise to consult Appendix II - Parameter Overview of the journal article.
+
+### Data Access Utils
+The data access utils are stored in the `data_access_utils` directory. The directory contains two files: `data_tools.py` and `dataset.py`. The `data_tools.py` file contains the functions to access the data in the `.npz` files. The `dataset.py` file contains the class to access the data in the `.npz` files. The class is used to store the data and metadata in a convenient way. A demo of the access tools can be found in the `data_access_utils/how_to_access_the_data.ipynb` file. The demo shows how to use the data access tools to access the data in the `.npz` files. The demo is a Jupyter notebook and can be opened with any Jupyter notebook viewer.
+
+### Sequence Utils
+We provide a small set of verification tools to quickly check for sequence duplications or id-filename-mismatches that can occur when modifying the sequence files and lead to unexpected errors during the experiment.
+
+Use the script found in `sequence_utils/verify_sequences.py` either from CLI or via Python. Please, find a demo of the sequence verification tool under ``sequence_utils/how_to_verify_the_sequences.ipynb``. The demo shows how to use the sequence verification tool to check for sequence duplications or id-filename-mismatches. The demo is a Jupyter notebook and can be opened with any Jupyter notebook viewer.
+
+## Data Format
+The data is stored in the `.npz` format. The raw data is stored in a dictionary with the following keys:
+```python
+['Z', 'Y', 'X', 'T', 'ECO', 'EFO', 'TID', 'TIC', 'ITR', 'ID']
 ```
-Where:
-- `<experiment>`: The experiment the data was taken from.
-- `<set_type>`: The type of set the data belongs to. [raw, processed]
-- `<tolerated_noise_limit>`: Lower threshold for cycle counts seen as toleratable noise; set to $\textsf{median}(\eta)$. Anything below that is treated as trivial noise.
-- `<jitter_limit>`: Lower threshold for cycle counts seen as jitter; set to $\textsf{median}(\eta)+1\sigma$. 
-- `<jump_limit>`: Lower threshold for cycle counts seen as jumps; set to $\textsf{median}(\eta)+2\sigma$. 
-- `<blob-b-gone_used>`: Whether the blob-b-gone (BBEG) algorithm was used to remove blob artifacts. [BBEG, noBBEG]
+The processed data is stored in the same format, but with additional metadata and results that contain the extracted information of the particle motility. Both are stored as dictionaries and can be access with the `dataset` class found in `data_access_tools/dataset.py`. The results are indicated witht he following keys:
+```python
+[
+  'unrestricted_ensemble_fit_res',
+  'restricted_ensemble_fit_res',
+  'unrestricted_time_fit_res', 
+  'restricted_time_fit_res', 
+  'unrestricted_ergodicity', 
+  'restricted_ergodicity'
+]
+```
+Where the `unrestricted` and `restricted` refer to the two different ways to access the MSD regimes: The `Lower MSD Regime`, i.e. `unrestricted` and the `Upper MSD Regime`, i.e. `restricted`. The `ensemble` and `time` refer to the two different methods used to fit the data. The `unrestricted_ensemble_fit_res` contains the results of the unrestricted ensemble fit, while the `restricted_ensemble_fit_res` contains the results of the restricted ensemble fit. The same applies for the time fits. Additionally, the time fit resilts contain the diffusion coefficient extracted for each trajectory and the average diffusion coefficient for the entire dataset. The `unrestricted_ergodicity` and `restricted_ergodicity` contain the ergodicity of the data, i.e. the ratio of the ensemble average to the time average.
+The ergodicity is calculated as follows:
+$$\text{ergodicity}=\frac{\langle MSD \rangle_{ensemble}}{\langle MSD \rangle_{time}}$$
+
+Where $\langle MSD \rangle_{ensemble}$ is the ensemble average of the MSD and $\langle MSD \rangle_{time}$ is the time average of the MSD. The ergodicity is a measure of how well the data fits the ergodic hypothesis, i.e. how well the ensemble average and time average agree with each other. An isotropic process is expected to have an ergodicity of 1, while a non-ergodic process is expected to have an ergodicity of less than 1. 
 
 ## Data Processing
 The data was processed in the following way:
-1. Discard all traces with less than 50 localizations.
+1. Discard all traces with less than 50 and more than 1500 localizations.
 2. Set starting time to 0 for all traces.
 3. Set the range of IDs to [0, N-1] with N being the number of traces.
-4. Remove Jump and Jitter artifacts.
+4. Filter for immobilized particles using ['blob-be-gone'](https://www.frontiersin.org/articles/10.3389/fbinf.2023.1268899/full) algorithm. We used the following weights: 
+```python
+    {
+        'MAX_DIST':1,
+        'CV_AREA':1,
+        'SPHE':2, 
+        'ELLI':1,
+        'CV_DENSITY':2,
+    }
+```
+We did not filter for immobilized particles the lipid-deposition [*FLOW*] data, as there were very little particles that were immobilized and the filtering process would've been damaging to the data.
+5. Remove Jump and Jitter artifacts.
    1. Extract MINFLUX time signal from data.
    2. Cut traces whenever jump or jitter artifacts are detected.
    3. Remove traces with less than 50 localizations.
-5. Remove blob-artifacts using [blob-b-gone](https://www.frontiersin.org/journals/bioinformatics/articles/10.3389/fbinf.2023.1268899/full).
+6. Filter for immobilized particles using ['blob-be-gone'](https://www.frontiersin.org/articles/10.3389/fbinf.2023.1268899/full) algorithm. We used the following weights: 
+```python
+    {                                
+        'MAX_DIST':1,
+        'CV_AREA':1,
+        'SPHE':2, 
+        'ELLI':1, 
+        'CV_DENSITY':2
+    }
+```
+We did not filter for immobilized particles the lipid-deposition [*FLOW*] data, as there were very little particles that were immobilized and the filtering process would've been damaging to the data.
+
+7. Calculate the Mean Squared Displacement (MSD), i.e. a custom implementation of the [MSD](https://en.wikipedia.org/wiki/Mean_squared_displacement) algorithm to suit inhomogeneous lag-times encountered in the MINFLUX data. 
+8. Calculate the Optimized Least Squares Fit (OLSF) of the MSD data to extract the diffusion coefficient. The OLSF is a custom implementation of the algorithm described by Michalet et al. in [Optimal diffusion coefficient estimation in single-particle tracking](https://doi.org/10.1103/PhysRevE.85.061916) to suit the inhomogeneous lag-times encountered in the MINFLUX data.
+
+All information gathered during the processign steps is stored in the `metadata` dictionary of the `npz` files. The metadata is stored in a dictionary.
+
 
 ## Data Field Description
 #### ``X,Y,Z``
@@ -100,21 +170,20 @@ The data was processed in the following way:
 
 # Acquisition Parameters
 **Experimental MINFLUX Scanning Parameters for 2D Single Particle Tracking of Fluorescent QDot-labeled Lipid Analogues in the SLB** – **(*)** marks the parameters that were changed for the experiments.
-| **2D Tracking**                    | **1st Iteration** | **2nd Iteration** | **3rd Iteration** | **4th Iteration** |
-|:----------------------------------:|:-----------------:|:-----------------:|:-----------------:|:------------------:|
-| **L (nm)**                         | 284               | 284               | 302               | 150                |
-| **Pattern Shape**                  | Hexagon           | Hexagon           | Hexagon           | Hexagon            |
-| **Photon Limit (counts)**          | 40                | 40                | 20                | 50 (*)             |
-| **Laser Power Multiplier (times)** | 1.0               | 1.0               | 1.5               | 2.0                |
-| **Pattern dwell time (µs)**        | 500               | 500               | 100               | 200 (*)            |
-| **Pattern repeat (times)**         | 1                 | 1                 | 1                 | 1                  |
-| **CFR Threshold**                  | -1.0              | -1.0              | 0.5               | -1.0               |
-| **Background Threshold (kHz)**     | 15                | 15                | 30                | 30                 |
-| **Damping (control param.)**       | 0                 | 0                 | 0                 | 0                  |
-| **Headstart (control param.)**     | -1                | -1                | -1                | -1                 |
-| **Stickiness (control param.)**    | 4                 | 4                 | 4                 | 4                  |
-| **MaxOffTime (control param.)**    | 3ms               | 3ms               | 3ms               | 3ms                |
-
+| **2D Tracking**                 | Pinhole Orbit [I] | 1st MFX Iteration [II] | 2nd MFX Iteration [III]  |   |
+|:-------------------------------:|:-----------------:|:----------------------:|:------------------------:|:---:|
+| **L (nm)**                      | 284               | 302                    | 150                      |   |
+| **Pattern Shape**               | Hexagon           | Hexagon                | Hexagon                  |   |
+| **Photon Limit (counts)**       | 40                | 20                     | 50 (*)                   |   |
+| **Laser Power Factor (times)**  | 1                 | 1.5                    | 2.0 (*)                  |   |
+| **Pattern dwell time (µs)**     | 500               | 100                    | 200 (*)                  |   |
+| **Pattern repeat (times)**      | 1                 | 1                      | 1                        |   |
+| **CFR Threshold**               | -1                | 0.5                    | -1                       |   |
+| **Background Threshold (kHz)**  | 15                | 30                     | 30 (*)                   |   |
+| **MaxOffTime (control param.)** | 3ms               | 3ms                    | 3ms                      |   |
+| **Damping (control param.)**    | 0                 | 0                      | 0                        |   |
+| **Headstart (control param.)**  | -1                | -1                     | -1                       |   |
+| **Stickiness (control param.)** | 4                 | 4                      | 4                        |   |
 
 
 # Extended Data Availability
