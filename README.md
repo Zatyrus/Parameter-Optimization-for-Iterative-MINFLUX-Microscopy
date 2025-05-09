@@ -170,21 +170,20 @@ All information gathered during the processign steps is stored in the `metadata`
 
 # Acquisition Parameters
 **Experimental MINFLUX Scanning Parameters for 2D Single Particle Tracking of Fluorescent QDot-labeled Lipid Analogues in the SLB** – **(*)** marks the parameters that were changed for the experiments.
-| **2D Tracking**                 | Pinhole Orbit [I] | 1st MFX Iteration [II] | 2nd MFX Iteration [III]  |   |
-|:-------------------------------:|:-----------------:|:----------------------:|:------------------------:|:---:|
-| **L (nm)**                      | 284               | 302                    | 150                      |   |
-| **Pattern Shape**               | Hexagon           | Hexagon                | Hexagon                  |   |
-| **Photon Limit (counts)**       | 40                | 20                     | 50 (*)                   |   |
-| **Laser Power Factor (times)**  | 1                 | 1.5                    | 2.0 (*)                  |   |
-| **Pattern dwell time (µs)**     | 500               | 100                    | 200 (*)                  |   |
-| **Pattern repeat (times)**      | 1                 | 1                      | 1                        |   |
-| **CFR Threshold**               | -1                | 0.5                    | -1                       |   |
-| **Background Threshold (kHz)**  | 15                | 30                     | 30 (*)                   |   |
-| **MaxOffTime (control param.)** | 3ms               | 3ms                    | 3ms                      |   |
-| **Damping (control param.)**    | 0                 | 0                      | 0                        |   |
-| **Headstart (control param.)**  | -1                | -1                     | -1                       |   |
-| **Stickiness (control param.)** | 4                 | 4                      | 4                        |   |
-
+| **2D Tracking**                 | Pinhole Orbit [I] | 1st MFX Iteration [II] | 2nd MFX Iteration [III]  |
+|:-------------------------------:|:-----------------:|:----------------------:|:------------------------:|
+| **L (nm)**                      | 284               | 302                    | 150                      |
+| **Pattern Shape**               | Hexagon           | Hexagon                | Hexagon                  |
+| **Photon Limit (counts)**       | 40                | 20                     | 50 (*)                   |
+| **Laser Power Factor (times)**  | 1                 | 1.5                    | 2.0 (*)                  |
+| **Pattern dwell time (µs)**     | 500               | 100                    | 200 (*)                  |
+| **Pattern repeat (times)**      | 1                 | 1                      | 1                        |
+| **CFR Threshold**               | -1                | 0.5                    | -1                       |
+| **Background Threshold (kHz)**  | 15                | 30                     | 30 (*)                   |
+| **MaxOffTime (control param.)** | 3ms               | 3ms                    | 3ms                      |
+| **Damping (control param.)**    | 0                 | 0                      | 0                        |
+| **Headstart (control param.)**  | -1                | -1                     | -1                       |
+| **Stickiness (control param.)** | 4                 | 4                      | 4                        |
 
 # Extended Data Availability
 Should you require the full data set as exported from the MINFLUX-IMSPECTOR and/or sequence file, please contact the corresponding author. The data is stored in a proprietary format and can be made available upon request.
