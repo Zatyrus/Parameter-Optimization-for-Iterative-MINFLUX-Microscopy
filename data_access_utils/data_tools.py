@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from glob import glob
 
-from typing import List, Dict, Union
+from typing import List, Dict, Tuple
 from numpy.lib.npyio import NpzFile
 
 
@@ -153,7 +153,7 @@ class MFXDataAccessUtils:
     @staticmethod
     def overview_2d(
         data: pd.DataFrame, x: str, y: str, hue: str
-    ) -> Union[plt.Figure, plt.Axes]:
+    ) -> Tuple[plt.Figure, plt.Axes]:
         """
         Function to plot a 2D overview of the data.
         """
@@ -181,7 +181,7 @@ class MFXDataAccessUtils:
     @staticmethod
     def show_track(
         track_dict: Dict[str, Dict[str, np.ndarray]], ID: int, x: str, y: str, hue: str
-    ) -> Union[plt.Figure, plt.Axes]:
+    ) -> Tuple[plt.Figure, plt.Axes]:
         """
         Function to plot a track.
         """
@@ -211,6 +211,70 @@ class MFXDataAccessUtils:
         ax.legend()
         fig.colorbar(mappable=img)
 
+        fig.tight_layout()
+
+        return fig, ax
+
+    @staticmethod
+    def plot_msd(
+        msd: np.ndarray,
+        lags: np.ndarray,
+        title: str = "Mean Squared Displacement",
+        xlabel: str = "Lags [s]",
+        ylabel: str = "MSD [nm²]",
+    ) -> Tuple[plt.Figure, plt.Axes]:
+        """
+        Function to plot the MSD.
+        """
+        fig, ax = plt.subplots(figsize=(6, 5), dpi=100)
+        ax.plot(lags, msd)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.set_title(title)
+        fig.tight_layout()
+
+        return fig, ax
+    
+    @staticmethod
+    def plot_msd_overview(
+        msd_lags:Dict[int, Dict[str, np.ndarray]],
+        title: str = "Mean Squared Displacement Overview",
+        xlabel: str = "Lags [s]",
+        ylabel: str = "MSD [nm²]",
+    )-> Tuple[plt.Figure, plt.Axes]:
+        """
+        Function to plot the MSD overview.
+        """
+        fig, ax = plt.subplots(figsize=(6, 5), dpi=100)
+        for ID, data in msd_lags.items():
+            ax.plot(data["lags"], data["msd"])
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.set_title(title)
+        fig.tight_layout()
+
+        return fig, ax
+
+    @staticmethod
+    def plot_cycle_trace(
+        integrated_cycles: np.ndarray,
+        dormant_cycles: np.ndarray,
+        upper_limit: int,
+        title: str = "Cycle Trace",
+        xlabel: str = "Localization Number",
+        ylabel: str = "Cycle Trace [a.u.]",
+    ) -> Tuple[plt.Figure, plt.Axes]:
+        """
+        Function to plot the cycle trace.
+        """
+        fig, ax = plt.subplots(figsize=(6, 5), dpi=100)
+        ax.plot(integrated_cycles, label="Integrated Cycles", color="blue")
+        ax.plot(dormant_cycles, label="Dormant Cycles", color="red")
+        ax.axhline(y=upper_limit, color="k", linestyle="--", label="Upper Limit 1μ+1σ")
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.set_title(title)
+        ax.legend()
         fig.tight_layout()
 
         return fig, ax
