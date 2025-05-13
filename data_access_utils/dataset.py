@@ -195,10 +195,7 @@ class Dataset:
             self.track_dict, ID=ID, x=x, y=y, hue=hue, **kwargs
         )
 
-    def plot_msd(
-        self,
-        ID: int
-    ) -> Tuple[plt.Figure, plt.Axes]:
+    def plot_msd(self, ID: int) -> Tuple[plt.Figure, plt.Axes]:
         """
         Plot the mean squared displacement (MSD) over time.
 
@@ -214,17 +211,18 @@ class Dataset:
         if self.results is None:
             print("No results available.")
             return None
-        
+
         if self.results.get("msd_container") is None:
             print("No MSD data available.")
             return None
-        
+
         msd_container = self.get_msd_and_lags()
 
         return MFXDataAccessUtils.plot_msd(
-            **msd_container[ID], title=f"Track {ID} Mean Squared Displacement",
+            **msd_container[ID],
+            title=f"Track {ID} Mean Squared Displacement",
             xlabel="Lags [s]",
-            ylabel="MSD [nm²]"
+            ylabel="MSD [nm²]",
         )
 
     def plot_msd_overview(self, **kwargs) -> Tuple[plt.Figure, plt.Axes]:
@@ -243,7 +241,7 @@ class Dataset:
         if self.results is None:
             print("No results available.")
             return None
-        
+
         if self.results.get("msd_container") is None:
             print("No MSD data available.")
             return None
@@ -280,7 +278,9 @@ class Dataset:
             return None
 
         return MFXDataAccessUtils.plot_cycle_trace(
-            integrated_cycles=np.diff(self.results["cycle_container"][ID]["INTEGRATED"]),
+            integrated_cycles=np.diff(
+                self.results["cycle_container"][ID]["INTEGRATED"]
+            ),
             dormant_cycles=np.diff(self.results["cycle_container"][ID]["DORMANT"]),
             upper_limit=int(
                 self.metadata["cycle_stats_pre_split"]["TOT_median"]
@@ -455,7 +455,7 @@ class Dataset:
             else:
                 print("No MSD results available.")
                 return None
-            
+
     def get_cycle_info(self) -> Optional[Dict]:
         """
         Get the cycle information of the dataset.

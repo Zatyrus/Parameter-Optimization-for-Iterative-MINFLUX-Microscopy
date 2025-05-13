@@ -234,14 +234,14 @@ class MFXDataAccessUtils:
         fig.tight_layout()
 
         return fig, ax
-    
+
     @staticmethod
     def plot_msd_overview(
-        msd_lags:Dict[int, Dict[str, np.ndarray]],
+        msd_lags: Dict[int, Dict[str, np.ndarray]],
         title: str = "Mean Squared Displacement Overview",
         xlabel: str = "Lags [s]",
         ylabel: str = "MSD [nm²]",
-    )-> Tuple[plt.Figure, plt.Axes]:
+    ) -> Tuple[plt.Figure, plt.Axes]:
         """
         Function to plot the MSD overview.
         """
